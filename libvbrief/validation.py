@@ -1,4 +1,4 @@
-"""Core conformance validation for vBRIEF v0.5 JSON documents."""
+"""Core conformance validation for vBRIEF v0.7 JSON documents."""
 
 from __future__ import annotations
 
@@ -11,7 +11,9 @@ from libvbrief.compat import (
     ISSUE_INVALID_ID_FORMAT,
     ISSUE_INVALID_ITEM_STATUS,
     ISSUE_INVALID_ITEM_TYPE,
+    ISSUE_INVALID_ITEM_TYPE_VALUE,
     ISSUE_INVALID_PLANREF,
+    ISSUE_INVALID_PLANREFS,
     ISSUE_INVALID_PLAN_FIELD_TYPE,
     ISSUE_INVALID_PLAN_STATUS,
     ISSUE_INVALID_ROOT_FIELD_TYPE,
@@ -21,7 +23,9 @@ from libvbrief.compat import (
     ISSUE_MISSING_PLAN_FIELD,
     ISSUE_MISSING_ROOT_FIELD,
     PLAN_REF_PATTERN,
+    VALID_ITEM_TYPES,
     VALID_STATUSES,
+    VALID_VERSIONS,
 )
 from libvbrief.issues import ValidationReport
 
@@ -73,11 +77,11 @@ def _validate_root(data: Mapping[str, Any], report: ValidationReport) -> None:
 
     if vbrief_info is not None:
         version = vbrief_info.get("version")
-        if version != "0.5":
+        if version not in VALID_VERSIONS:
             report.add_error(
                 ISSUE_INVALID_VERSION,
                 "vBRIEFInfo.version",
-                f"Expected version '0.5', got {version!r}",
+                f"Expected version in {sorted(VALID_VERSIONS)}, got {version!r}",
             )
 
     if "plan" not in data:
@@ -188,6 +192,14 @@ def _validate_items(
             else:
                 seen_ids.add(item_id)
 
+        item_type = item.get("type")
+        if item_type is not None and item_type not in VALID_ITEM_TYPES:
+            report.add_error(
+                ISSUE_INVALID_ITEM_TYPE_VALUE,
+                f"{item_path}.type",
+                f"Invalid item type {item_type!r}; expected one of {sorted(VALID_ITEM_TYPES)}",
+            )
+
         plan_ref = item.get("planRef")
         if plan_ref is not None and (not isinstance(plan_ref, str) or not PLAN_REF_PATTERN.match(plan_ref)):
             report.add_error(
@@ -195,6 +207,23 @@ def _validate_items(
                 f"{item_path}.planRef",
                 "planRef must match #..., file://..., or https://...",
             )
+
+        plan_refs = item.get("planRefs")
+        if plan_refs is not None:
+            if not isinstance(plan_refs, list):
+                report.add_error(
+                    ISSUE_INVALID_PLANREFS,
+                    f"{item_path}.planRefs",
+                    "planRefs must be an array",
+                )
+            else:
+                for idx, ref in enumerate(plan_refs):
+                    if not isinstance(ref, str) or not PLAN_REF_PATTERN.match(ref):
+                        report.add_error(
+                            ISSUE_INVALID_PLANREFS,
+                            f"{item_path}.planRefs[{idx}]",
+                            "planRefs entries must match #..., file://..., or https://...",
+                        )
 
         sub_items = item.get("subItems")
         if sub_items is None:
