@@ -12,7 +12,7 @@ A minimal vBRIEF document has just four fields:
 
 ```json
 {
-  "vBRIEFInfo": { "version": "0.5" },
+  "vBRIEFInfo": { "version": "0.7" },
   "plan": {
     "title": "My First Plan",
     "status": "running",
@@ -47,12 +47,12 @@ Start simple. Add structure only when you need it.
 
 | Document | Description |
 |----------|-------------|
-| [docs/vbrief-spec-0.5.md](docs/vbrief-spec-0.5.md) | Formal specification (RFC 2119) |
+| [docs/vbrief-spec-0.7.md](docs/vbrief-spec-0.7.md) | Formal specification v0.7 (RFC 2119) |
 | [docs/GUIDE.md](docs/GUIDE.md) | Reference guide with patterns and recipes |
 | [docs/getting-started.md](docs/getting-started.md) | Tutorial for beginners |
 | [docs/tron-encoding.md](docs/tron-encoding.md) | TRON format reference |
 | [docs/vbrief-workflow-profile.md](docs/vbrief-workflow-profile.md) | Workflow Profile extension (flow-based programming) |
-| [docs/MIGRATION.md](docs/MIGRATION.md) | v0.4 → v0.5 migration guide |
+| [docs/MIGRATION.md](docs/MIGRATION.md) | Migration guide |
 | [libvbrief-ts/README.md](libvbrief-ts/README.md) | TypeScript package usage and examples |
 
 ## Repo Structure
@@ -84,7 +84,7 @@ npm install ./libvbrief-ts
 From a fresh clone:
 
 ```bash
-git clone https://github.com/visionik/vBRIEF.git
+git clone https://github.com/deftai/vBRIEF.git
 cd vBRIEF
 pip install -e .
 npm install ./libvbrief-ts
@@ -98,7 +98,7 @@ TypeScript parsing and validation:
 import { loads, validate } from "libvbrief-ts";
 
 const document = loads(`{
-  "vBRIEFInfo": { "version": "0.5" },
+  "vBRIEFInfo": { "version": "0.7" },
   "plan": {
     "title": "Release Checklist",
     "status": "running",
@@ -137,7 +137,7 @@ python validation/vbrief_validator.py your-plan.vbrief.json
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Feedback and issues welcome at [GitHub Issues](https://github.com/visionik/vBRIEF/issues).
+See [CONTRIBUTING.md](CONTRIBUTING.md). Feedback and issues welcome at [GitHub Issues](https://github.com/deftai/vBRIEF/issues).
 
 ## License
 

@@ -1,5 +1,5 @@
 {
-  "vBRIEFInfo": { "version": "0.5" },
+  "vBRIEFInfo": { "version": "0.7" },
   "plan": {
     "id": "wf:invoice-processing-v4",
     "title": "Invoice Processing with Error Handling",

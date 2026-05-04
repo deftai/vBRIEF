@@ -1,6 +1,7 @@
 """Compatibility helpers and policy constants."""
 
 from libvbrief.compat.policy import (
+    EXTENSION_PROPERTY_PATTERN,
     HIERARCHICAL_ID_PATTERN,
     ISSUE_DAG_CYCLE,
     ISSUE_DANGLING_EDGE_REF,
@@ -10,7 +11,9 @@ from libvbrief.compat.policy import (
     ISSUE_INVALID_ID_FORMAT,
     ISSUE_INVALID_ITEM_STATUS,
     ISSUE_INVALID_ITEM_TYPE,
+    ISSUE_INVALID_ITEM_TYPE_VALUE,
     ISSUE_INVALID_PLANREF,
+    ISSUE_INVALID_PLANREFS,
     ISSUE_INVALID_PLAN_FIELD_TYPE,
     ISSUE_INVALID_PLAN_STATUS,
     ISSUE_INVALID_ROOT_FIELD_TYPE,
@@ -20,7 +23,9 @@ from libvbrief.compat.policy import (
     ISSUE_MISSING_PLAN_FIELD,
     ISSUE_MISSING_ROOT_FIELD,
     PLAN_REF_PATTERN,
+    VALID_ITEM_TYPES,
     VALID_STATUSES,
+    VALID_VERSIONS,
 )
 
 __all__ = [

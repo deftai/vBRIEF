@@ -13,8 +13,27 @@ VALID_STATUSES: Final[set[str]] = {
     "running",
     "completed",
     "blocked",
+    "failed",
     "cancelled",
+    "auto",
 }
+
+VALID_ITEM_TYPES: Final[set[str]] = {
+    "task",
+    "group",
+    "milestone",
+    "epic",
+}
+
+VALID_VERSIONS: Final[set[str]] = {
+    "0.5",
+    "0.6",
+    "0.7",
+}
+
+EXTENSION_PROPERTY_PATTERN: Final[re.Pattern[str]] = re.compile(
+    r"^x-[a-z0-9-]+/"
+)
 
 HIERARCHICAL_ID_PATTERN: Final[re.Pattern[str]] = re.compile(
     r"^[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*$"
@@ -43,3 +62,5 @@ ISSUE_INVALID_SUBITEMS_TYPE: Final[str] = "invalid_subitems_type"
 ISSUE_INVALID_EDGE_STRUCTURE: Final[str] = "invalid_edge_structure"
 ISSUE_DANGLING_EDGE_REF: Final[str] = "dangling_edge_ref"
 ISSUE_DAG_CYCLE: Final[str] = "dag_cycle"
+ISSUE_INVALID_ITEM_TYPE_VALUE: Final[str] = "invalid_item_type_value"
+ISSUE_INVALID_PLANREFS: Final[str] = "invalid_planrefs"
